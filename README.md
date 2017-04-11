@@ -16,4 +16,4 @@ Permettre d’acheter / offrir / utiliser des cartes cadeau (qrcode)
 
 # Aspect techniques à développer
 *  Visualiser les produits et/ou évènements  avec des images ou vidéo en entête.
-** Intégrer GMaps pour indiquer le lieu des événements par exemple
+*  Intégrer GMaps pour indiquer le lieu des événements par exemple
