@@ -1,9 +1,8 @@
 package fr.unice.polytech.si3.gregorymerlet.enseigne;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,20 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ViewFlipper;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MainFragment;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
-
-    private View actualPage;
-    private GoogleMap mMap;
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +34,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        actualPage = findViewById(R.id.contentMain);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, new MainFragment()).commit();
     }
 
     @Override
@@ -87,29 +75,36 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment fragment = null;
+        Class fragmentClass;
 
-        if (id == R.id.nav_products) {
-            actualPage.setVisibility(View.INVISIBLE);
-            actualPage = findViewById(R.id.contentMain);
-            actualPage.setVisibility(View.VISIBLE);
-        } else if (id == R.id.nav_map) {
-            actualPage.setVisibility(View.INVISIBLE);
-            actualPage = findViewById(R.id.contentMap);
-            actualPage.setVisibility(View.VISIBLE);
+        switch(id){
+            case R.id.nav_products:
+                fragmentClass = MainFragment.class;
+                break;
+            case R.id.nav_map:
+                fragmentClass = MapFragment.class;
+                break;
+            default:
+                fragmentClass = MainFragment.class;
         }
 
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+        // Highlight the selected item has been done by NavigationView
+        item.setChecked(true);
+        // Set action bar title
+        setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        LatLng polytech = new LatLng(43.615660, 7.071876);
-        mMap.addMarker(new MarkerOptions().position(polytech).title("Polytech' Nice Sophia"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(polytech));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
     }
 }

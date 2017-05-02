@@ -21,11 +21,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include android:id="@+id/contentMain"
-        layout="@layout/content_main"
-        android:visibility="visible"/>
-    <include android:id="@+id/contentMap"
-        layout="@layout/content_map"
-        android:visibility="invisible"/>
+    <FrameLayout
+        android:id="@+id/flContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.design.widget.CoordinatorLayout>
