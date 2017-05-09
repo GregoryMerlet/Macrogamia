@@ -6,21 +6,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
+
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Shop;
 
-public class MapFragment extends Fragment{
+public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickListener {
 
-    MapView mMapView;
+    private Firm firm;
+    private MapView mMapView;
     private GoogleMap googleMap;
+    private HashMap<Marker, Shop> markers;
+
+    public MapFragment(){
+    }
+
+    public void init(Firm firm){
+        this.firm = firm;
+        this.markers = new HashMap<>();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,13 +53,11 @@ public class MapFragment extends Fragment{
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
-                LatLng polytech = new LatLng(43.615660, 7.071876);
-                googleMap.addMarker(new MarkerOptions().position(polytech).title("Polytech' Nice Sophia"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(polytech));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(polytech).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                googleMap.setOnMarkerClickListener(MapFragment.this);
+                for(Shop shop : firm.getShops()){
+                    Marker marker = googleMap.addMarker(new MarkerOptions().position(shop.getLatLng()).title(shop.getName()));
+                    markers.put(marker, shop);
+                }
             }
         });
 
@@ -76,5 +86,11 @@ public class MapFragment extends Fragment{
     public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        System.out.println(markers.get(marker));
+        return false;
     }
 }

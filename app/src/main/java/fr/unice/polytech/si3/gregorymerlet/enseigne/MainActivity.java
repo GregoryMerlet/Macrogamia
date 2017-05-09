@@ -14,9 +14,13 @@ import android.view.MenuItem;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MainFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MapFragment;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.ProductsFragment;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Firm firm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,13 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new MainFragment()).commit();
+        if(fragmentManager.getFragments() == null)
+            fragmentManager.beginTransaction().replace(R.id.flContent, new MainFragment()).commit();
+
+        this.firm = new Firm();
+        this.firm.init();
+
+        setTitle(firm.getName());
     }
 
     @Override
@@ -76,23 +86,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
-        Class fragmentClass;
 
         switch(id){
             case R.id.nav_products:
-                fragmentClass = MainFragment.class;
+                fragment = ProductsFragment.newInstance(firm);
                 break;
             case R.id.nav_map:
-                fragmentClass = MapFragment.class;
+                fragment = new MapFragment();
+                ((MapFragment)fragment).init(firm);
                 break;
             default:
-                fragmentClass = MainFragment.class;
-        }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+                fragment = new MainFragment();
         }
 
         // Insert the fragment by replacing any existing fragment
