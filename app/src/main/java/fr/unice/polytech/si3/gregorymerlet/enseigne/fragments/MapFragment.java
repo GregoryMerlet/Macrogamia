@@ -21,6 +21,7 @@ import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Shop;
 
 public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickListener {
 
+    private static final String FIRM = "firm";
     private Firm firm;
     private MapView mMapView;
     private GoogleMap googleMap;
@@ -29,13 +30,19 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
     public MapFragment(){
     }
 
-    public void init(Firm firm){
-        this.firm = firm;
-        this.markers = new HashMap<>();
+    public static MapFragment newInstance(Firm firm) {
+        MapFragment fragment = new MapFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(FIRM, firm);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.firm = (Firm) getArguments().getSerializable(FIRM);
+        this.markers = new HashMap<>();
+
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);

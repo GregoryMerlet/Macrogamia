@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
@@ -103,8 +104,7 @@ public class ProductsFragment extends Fragment {
         RadioGroup searchSortRadioGroup = (RadioGroup) rootView.findViewById(R.id.searchSortRadioGroup);
         String[] checkedSort = rootView.findViewById(searchSortRadioGroup.getCheckedRadioButtonId()).getTag().toString().split(" ");
         String sortType = checkedSort[0];
-        boolean ascendingSort = true;
-        if(checkedSort.length > 1) ascendingSort = (checkedSort[1].equals("true"))? true : false;
+        boolean ascendingSort = (checkedSort[1].equals("true"))? true : false;
 
         ProductsAdapter productsAdapter = new ProductsAdapter(this.getContext(), firm.getProducts(checkedType, sortType, ascendingSort));
         productsGrid.setAdapter(productsAdapter);
@@ -113,20 +113,29 @@ public class ProductsFragment extends Fragment {
     private void openSearchBar() {
         RelativeLayout searchContent = (RelativeLayout) rootView.findViewById(R.id.searchContent);
         ImageButton openSearchButton = (ImageButton) rootView.findViewById(R.id.openSearchButton);
+        int searchContentSize = getRealHeightOf((RelativeLayout) ((ScrollView) searchContent.getChildAt(0)).getChildAt(0));
         if (actualAnimation == null || actualAnimation.hasEnded()){
             if (!isSearchOpen) {
                 openSearchButton.setImageResource(R.drawable.ic_keyboard_arrow_up);
                 isSearchOpen = true;
-                actualAnimation = new SizeAnimation(searchContent, 1000, searchContent.getHeight());
+                actualAnimation = new SizeAnimation(searchContent, searchContentSize, searchContent.getHeight());
                 actualAnimation.setDuration(500);
                 searchContent.startAnimation(actualAnimation);
             } else {
                 openSearchButton.setImageResource(R.drawable.ic_keyboard_arrow_down);
                 isSearchOpen = false;
-                actualAnimation = new SizeAnimation(searchContent, -1000, searchContent.getHeight());
+                actualAnimation = new SizeAnimation(searchContent, -searchContentSize, searchContent.getHeight());
                 actualAnimation.setDuration(500);
                 searchContent.startAnimation(actualAnimation);
             }
         }
+    }
+
+    private int getRealHeightOf(RelativeLayout relativeLayout){
+        int result = 0;
+        for(int i = 0; i < relativeLayout.getChildCount(); i++){
+            result += relativeLayout.getChildAt(i).getHeight();
+        }
+        return result;
     }
 }

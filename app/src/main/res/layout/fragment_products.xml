@@ -87,13 +87,8 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/defaultSortButton"
-                        android:text="Aucun tri"
-                        android:tag="default" />
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text="Nom croissant"
+                        android:id="@+id/defaultSortButton"
                         android:tag="name true" />
                     <RadioButton
                         android:layout_width="wrap_content"

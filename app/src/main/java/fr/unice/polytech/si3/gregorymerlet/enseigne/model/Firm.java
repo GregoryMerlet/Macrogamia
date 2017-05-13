@@ -20,9 +20,12 @@ public class Firm implements Serializable{
 
     public void init(){
         this.name = "FirmName";
+
+        //Creating shops
         Shop polytech = new Shop("Polytech' Nice Sophia", new LatLng(43.615660, 7.071876));
         Shop paris = new Shop("Test Paris", new LatLng(48.8589507, 2.2775171));
 
+        //Creating products
         List<Product> products = new ArrayList<>();
         products.add(new Product("Product 1", "type1", "description", 5.0, "/path"));
         products.add(new Product("Product 2", "type2", "description", 5.0, "/path"));
@@ -35,6 +38,7 @@ public class Firm implements Serializable{
         products.add(new Product("Product 9", "type1", "description", 5.0, "/path"));
         products.add(new Product("Product 10", "type2", "description", 5.0, "/path"));
 
+        //Adding products to shops
         polytech.addProduct(products.get(0));
         polytech.addProduct(products.get(1));
         polytech.addProduct(products.get(2));
@@ -50,6 +54,7 @@ public class Firm implements Serializable{
         paris.addProduct(products.get(7));
         paris.addProduct(products.get(8));
 
+        //Adding shops to firm
         addShop(polytech);
         addShop(paris);
     }
@@ -90,6 +95,8 @@ public class Firm implements Serializable{
     private List<Product> sortProductsBy(List<Product> products, String attribute, boolean ascending){
         List<Product> result = new ArrayList<>();
         switch(attribute){
+            case "name":
+                return sortProductsByName(products, ascending);
             default:
                 return sortProductsByName(products, ascending);
         }
