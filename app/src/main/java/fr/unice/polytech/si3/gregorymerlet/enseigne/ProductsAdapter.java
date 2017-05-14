@@ -35,6 +35,9 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             nameString = getItem(position).getName();
         productName.setText(nameString);
 
+        TextView productPrice = (TextView)convertView.findViewById(R.id.productPrice);
+        productPrice.setText(getItem(position).getPrice() + " €");
+
         ImageView image = (ImageView)convertView.findViewById(R.id.productImage);
         //Change image
 

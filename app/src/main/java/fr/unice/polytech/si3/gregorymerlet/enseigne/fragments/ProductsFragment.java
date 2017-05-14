@@ -3,6 +3,8 @@ package fr.unice.polytech.si3.gregorymerlet.enseigne.fragments;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.support.v7.widget.Toolbar;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
@@ -133,9 +136,25 @@ public class ProductsFragment extends Fragment {
 
     private int getRealHeightOf(RelativeLayout relativeLayout){
         int result = 0;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        TypedValue typedValue = new TypedValue();
+        int actionBarHeight = 0;
+        if (getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true))
+        {
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,getResources().getDisplayMetrics());
+        }
+        RelativeLayout searchLayout = (RelativeLayout) rootView.findViewById(R.id.searchLayout);
+        int maxSize = displayMetrics.heightPixels - actionBarHeight - searchLayout.getHeight() - 25;
+
         for(int i = 0; i < relativeLayout.getChildCount(); i++){
             result += relativeLayout.getChildAt(i).getHeight();
         }
+
+        if(result > maxSize)
+            result = maxSize;
+
         return result;
     }
 }

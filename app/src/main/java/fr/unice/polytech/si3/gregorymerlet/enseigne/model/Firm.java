@@ -28,15 +28,15 @@ public class Firm implements Serializable{
         //Creating products
         List<Product> products = new ArrayList<>();
         products.add(new Product("Product 1", "type1", "description", 5.0, "/path"));
-        products.add(new Product("Product 2", "type2", "description", 5.0, "/path"));
-        products.add(new Product("Product 3", "type1", "description", 5.0, "/path"));
-        products.add(new Product("Product 4", "type2", "description", 5.0, "/path"));
-        products.add(new Product("Product 5", "type1", "description", 5.0, "/path"));
-        products.add(new Product("Product 6", "type2", "description", 5.0, "/path"));
-        products.add(new Product("Product 7", "type1", "description", 5.0, "/path"));
-        products.add(new Product("Product 8", "type2", "description", 5.0, "/path"));
-        products.add(new Product("Product 9", "type1", "description", 5.0, "/path"));
-        products.add(new Product("Product 10", "type2", "description", 5.0, "/path"));
+        products.add(new Product("Product 2", "type2", "description", 8.0, "/path"));
+        products.add(new Product("Product 3", "type1", "description", 25.0, "/path"));
+        products.add(new Product("Product 4", "type2", "description", 150.0, "/path"));
+        products.add(new Product("Product 5", "type1", "description", 5.5, "/path"));
+        products.add(new Product("Product 6", "type2", "description", 4.0, "/path"));
+        products.add(new Product("Product 7", "type1", "description", 1.0, "/path"));
+        products.add(new Product("Product 8", "type2", "description", 9.99, "/path"));
+        products.add(new Product("Product 9", "type1", "description", 7.0, "/path"));
+        products.add(new Product("Product 10", "type2", "description", 10.0, "/path"));
 
         //Adding products to shops
         polytech.addProduct(products.get(0));
@@ -97,6 +97,8 @@ public class Firm implements Serializable{
         switch(attribute){
             case "name":
                 return sortProductsByName(products, ascending);
+            case "price":
+                return sortProductsByPrice(products, ascending);
             default:
                 return sortProductsByName(products, ascending);
         }
@@ -119,6 +121,36 @@ public class Firm implements Serializable{
                         }
                     } else {
                         if (result.get(i).getName().compareTo(product.getName()) < 0) {
+                            result.add(i, product);
+                            break;
+                        } else if (i == result.size() - 1) {
+                            result.add(product);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private List<Product> sortProductsByPrice(List<Product> products, boolean ascending){
+        List<Product> result = new ArrayList<>();
+        for(Product product : products){
+            if(result.isEmpty()) {
+                result.add(product);
+            } else {
+                for (int i = 0; i < result.size(); i++) {
+                    if(ascending) {
+                        if (result.get(i).getPrice() > product.getPrice()) {
+                            result.add(i, product);
+                            break;
+                        } else if (i == result.size() - 1) {
+                            result.add(product);
+                            break;
+                        }
+                    } else {
+                        if (result.get(i).getPrice() < product.getPrice()) {
                             result.add(i, product);
                             break;
                         } else if (i == result.size() - 1) {

@@ -95,6 +95,16 @@
                         android:layout_height="wrap_content"
                         android:text="Nom décroissant"
                         android:tag="name false" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Prix croissant"
+                        android:tag="price true" />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Prix décroissant"
+                        android:tag="price false" />
                 </RadioGroup>
             </RelativeLayout>
         </ScrollView>
