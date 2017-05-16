@@ -13,4 +13,8 @@
     <color name="productDialogShopListTextBackground">#b53f3f</color>
     <color name="productDialogNameAndPrice">#ffffff</color>
     <color name="productDialogNameAndPriceBackground">#b53f3f</color>
+    <color name="shopDialogName">#ffffff</color>
+    <color name="shopDialogNameBackground">#b53f3f</color>
+    <color name="shopDialogHoursListText">#ffffff</color>
+    <color name="shopDialogHoursListTextBackground">#b53f3f</color>
 </resources>

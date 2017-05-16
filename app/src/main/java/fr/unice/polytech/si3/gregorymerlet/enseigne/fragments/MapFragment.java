@@ -6,16 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs.ShopDialog;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Shop;
 
@@ -65,10 +69,23 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
                     Marker marker = googleMap.addMarker(new MarkerOptions().position(shop.getLatLng()).title(shop.getName()));
                     markers.put(marker, shop);
                 }
+                zoomAuto();
             }
         });
 
         return rootView;
+    }
+
+    private void zoomAuto(){
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Marker marker : markers.keySet()) {
+            builder.include(marker.getPosition());
+        }
+        LatLngBounds bounds = builder.build();
+        int padding = 300; // offset from edges of the map in pixels
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        googleMap.moveCamera(cu);
+        googleMap.animateCamera(cu);
     }
 
     @Override
@@ -97,7 +114,8 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        System.out.println(markers.get(marker));
+        ShopDialog shopDialog = new ShopDialog(this.getContext(), markers.get(marker));
+        shopDialog.show();
         return false;
     }
 }

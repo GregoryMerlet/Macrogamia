@@ -49,7 +49,7 @@
         android:id="@+id/productDialogShopListText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Liste des magasins ayant ce produit en stock : "
+        android:text="@string/productDialogShopListText"
         android:textStyle="bold"
         android:textColor="@color/productDialogShopListText"
         android:background="@color/productDialogShopListTextBackground"
@@ -64,7 +64,7 @@
         android:layout_below="@+id/productDialogShopListText" />
 
     <ImageButton
-        android:id="@+id/productDialogButtonOK"
+        android:id="@+id/productDialogButtonClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_close_black"

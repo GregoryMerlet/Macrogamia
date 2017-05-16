@@ -14,4 +14,6 @@
     <string name="search_sort_text">Trier par :</string>
     <string name="search_shop_text">Produits de :</string>
     <string name="search_all_shops">Tous les magasins</string>
+    <string name="productDialogShopListText">Magasins ayant ce produit en stock : </string>
+    <string name="shopDialogHoursListText">Horaires d\'ouverture : </string>
 </resources>

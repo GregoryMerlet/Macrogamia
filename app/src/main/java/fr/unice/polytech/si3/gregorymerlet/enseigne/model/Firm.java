@@ -24,8 +24,22 @@ public class Firm implements Serializable{
         this.name = "Macrogamia";
 
         //Creating shops
-        Shop polytech = new Shop("Polytech' Nice Sophia", new LatLng(43.615660, 7.071876));
-        Shop paris = new Shop("Test Paris", new LatLng(48.8589507, 2.2775171));
+        Shop stLaurent = new Shop("Macrogamia St-Laurent-du-Var", new LatLng(43.658772, 7.197495), "Avenue Eugène Donadeï, 06700 Saint-Laurent-du-Var");
+        stLaurent.addOpenHour(0, "10:00 - 20:00");
+        stLaurent.addOpenHour(1, "10:00 - 20:00");
+        stLaurent.addOpenHour(2, "10:00 - 20:00");
+        stLaurent.addOpenHour(3, "10:00 - 20:00");
+        stLaurent.addOpenHour(4, "10:00 - 20:00");
+        stLaurent.addOpenHour(5, "10:00 - 20:00");
+        stLaurent.addOpenHour(6, "Fermé");
+        Shop paris = new Shop("Macrogamia Paris", new LatLng(48.8503438, 2.3979738), "3Bis Rue du Faubourg Saint-Antoine, 75011 Paris");
+        paris.addOpenHour(0, "10:00 - 20:00");
+        paris.addOpenHour(1, "10:00 - 20:00");
+        paris.addOpenHour(2, "10:00 - 20:00");
+        paris.addOpenHour(3, "10:00 - 20:00");
+        paris.addOpenHour(4, "10:00 - 20:00");
+        paris.addOpenHour(5, "10:00 - 20:00");
+        paris.addOpenHour(6, "Fermé");
 
         //Creating products
         List<Product> products = new ArrayList<>();
@@ -42,15 +56,15 @@ public class Firm implements Serializable{
         products.add(new Product("Horizon Zero Dawn", "Jeu PS4", "Dans un monde post-apocalyptique luxuriant où la nature a repris ses droits sur les vestiges d'une civilisation oubliée, des groupes d'humains vivent une vie primitive au sein de tribus. La domination du monde sauvage leur a été usurpée par les machines, des créatures mécaniques redoutables d'origine inconnue.\n\nVous incarnez Aloy, une jeune chasseresse qui cherche à découvrir son destin dans les vestiges du passé. Bannie de sa tribu à la naissance, Aloy a appris à exploiter son agilité, son ingéniosité et ses capacités mortelles au tir à l'arc pour chasser les machines, se défendre contre les tribus rivales et survivre dans ce monde sauvage impitoyable.\n\nParcourez un monde jonché d'étranges artefacts et de ruines afin de percer ses plus grands mystères. Comment les machines ont-elles pu dominer le monde ? Qu'est-il arrivé à la civilisation précédente ? Les réponses à ces questions pourraient déterminer le destin d'Aloy... et de l'humanité.\n\nDans ce jeu de rôle gratifiant au gameplay riche en possibilités, l'accent est mis sur la variété des stratégies. Combinez des outils primitifs avec une technologie avancée pour fabriquer de quoi transformer les prédateurs en proies. Développez des tactiques pour vaincre les différentes machines et piratez les spécimens capturés pour qu'ils vous aident dans votre tâche.\n\nExplorez des décors incroyables mettant en valeur la beauté de la nature. Parcourez des forêts superbement détaillées, des montagnes imposantes et les ruines mystérieuses d'une civilisation disparue, le tout dans un monde qui regorge de vie grâce à la météo changeante et au système de cycle jour/nuit.", 69.99, R.drawable.horizon));
 
         //Adding products to shops
-        polytech.addProduct(products.get(0));
-        polytech.addProduct(products.get(1));
-        polytech.addProduct(products.get(2));
-        polytech.addProduct(products.get(3));
-        polytech.addProduct(products.get(4));
-        polytech.addProduct(products.get(5));
-        polytech.addProduct(products.get(6));
-        polytech.addProduct(products.get(8));
-        polytech.addProduct(products.get(9));
+        stLaurent.addProduct(products.get(0));
+        stLaurent.addProduct(products.get(1));
+        stLaurent.addProduct(products.get(2));
+        stLaurent.addProduct(products.get(3));
+        stLaurent.addProduct(products.get(4));
+        stLaurent.addProduct(products.get(5));
+        stLaurent.addProduct(products.get(6));
+        stLaurent.addProduct(products.get(8));
+        stLaurent.addProduct(products.get(9));
         paris.addProduct(products.get(0));
         paris.addProduct(products.get(1));
         paris.addProduct(products.get(2));
@@ -62,7 +76,7 @@ public class Firm implements Serializable{
         paris.addProduct(products.get(10));
 
         //Adding shops to firm
-        addShop(polytech);
+        addShop(stLaurent);
         addShop(paris);
     }
 
@@ -84,14 +98,14 @@ public class Firm implements Serializable{
         return shopNames;
     }
 
-    public List<String> getShopsForProduct(Product product){
-        List<String> shopNames = new ArrayList<>();
+    public List<Shop> getShopsForProduct(Product product){
+        List<Shop> shopList = new ArrayList<>();
 
         for(Shop shop : shops)
             if(shop.getProducts().contains(product))
-                shopNames.add(shop.getName());
+                shopList.add(shop);
 
-        return shopNames;
+        return shopList;
     }
 
     public List<Product> getProducts(String type, String sortBy, boolean ascending, String shopName){
