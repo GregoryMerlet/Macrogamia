@@ -8,13 +8,18 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.support.v7.widget.Toolbar;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
@@ -97,6 +102,27 @@ public class ProductsFragment extends Fragment {
             }
         });
 
+        Spinner searchShopSpinner = (Spinner) rootView.findViewById(R.id.searchShopSpinner);
+        searchShopSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                fillProductGrid();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        List<String> shops = new ArrayList<>();
+        shops.add(getResources().getString(R.string.search_all_shops));
+        shops.addAll(firm.getShopNames());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_spinner_item, shops);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        searchShopSpinner.setAdapter(adapter);
+
         fillProductGrid();
     }
 
@@ -109,7 +135,16 @@ public class ProductsFragment extends Fragment {
         String sortType = checkedSort[0];
         boolean ascendingSort = (checkedSort[1].equals("true"))? true : false;
 
-        ProductsAdapter productsAdapter = new ProductsAdapter(this.getContext(), firm.getProducts(checkedType, sortType, ascendingSort));
+        Spinner searchShopSpinner = (Spinner) rootView.findViewById(R.id.searchShopSpinner);
+        String shopName;
+        if(searchShopSpinner.getSelectedItem() != null)
+            shopName = searchShopSpinner.getSelectedItem().toString();
+        else
+            shopName = "all";
+        if(shopName.equals(getResources().getString(R.string.search_all_shops)))
+            shopName = "all";
+
+        ProductsAdapter productsAdapter = new ProductsAdapter(this.getContext(), firm.getProducts(checkedType, sortType, ascendingSort, shopName), firm);
         productsGrid.setAdapter(productsAdapter);
     }
 
@@ -151,6 +186,7 @@ public class ProductsFragment extends Fragment {
         for(int i = 0; i < relativeLayout.getChildCount(); i++){
             result += relativeLayout.getChildAt(i).getHeight();
         }
+        result += 30;
 
         if(result > maxSize)
             result = maxSize;

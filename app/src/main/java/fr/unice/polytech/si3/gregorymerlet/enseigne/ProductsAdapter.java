@@ -12,17 +12,22 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs.ProductDialog;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Product;
 
 public class ProductsAdapter extends ArrayAdapter<Product> {
 
-    public ProductsAdapter(Context context, List<Product> productList){
+    private Firm firm;
+
+    public ProductsAdapter(Context context, List<Product> productList, Firm firm){
         super(context, 0, productList);
+        this.firm = firm;
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(convertView == null)
             convertView = inflater.inflate(R.layout.product_adapter, null);
@@ -39,7 +44,15 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
         productPrice.setText(getItem(position).getPrice() + " €");
 
         ImageView image = (ImageView)convertView.findViewById(R.id.productImage);
-        //Change image
+        image.setImageResource(getItem(position).getImageId());
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductDialog productDialog = new ProductDialog(getContext(), getItem(position), firm.getShopsForProduct(getItem(position)));
+                productDialog.show();
+            }
+        });
 
         return convertView;
     }

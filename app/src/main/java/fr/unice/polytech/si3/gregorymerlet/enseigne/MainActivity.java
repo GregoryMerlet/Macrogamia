@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.AccountFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MainFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MapFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.ProductsFragment;
@@ -101,6 +102,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_map:
                 fragment = MapFragment.newInstance(firm);
+                break;
+            case R.id.nav_account:
+                fragment = AccountFragment.newInstance();
                 break;
             default:
                 fragment = new MainFragment();

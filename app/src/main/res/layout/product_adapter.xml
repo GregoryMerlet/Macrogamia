@@ -15,44 +15,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/productText"
+            android:background="@color/productTextBackground"/>
+
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            app:srcCompat="@drawable/placeholder" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            app:srcCompat="@drawable/placeholder"
+            android:layout_below="@id/productName"/>
+
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/transparentBlue">
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="5dp"
-                android:text="Name"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/productText" />
-            <TextView
-                android:id="@+id/productPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="5dp"
-                android:text="Price"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/productText" />
-        </RelativeLayout>
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:text="Price"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/productText"
+            android:background="@color/productPriceBackground"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
