@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 
@@ -15,9 +16,13 @@ public class Firm implements Serializable{
 
     private String name;
     private List<Shop> shops;
+    private List<User> users;
+    private User actualUser;
 
     public Firm(){
         this.shops = new ArrayList<>();
+        this.users = new ArrayList<>();
+        this.actualUser = null;
     }
 
     public void init(){
@@ -78,6 +83,9 @@ public class Firm implements Serializable{
         //Adding shops to firm
         addShop(stLaurent);
         addShop(paris);
+
+        users.add(new User("John", "Doe", "user1@gmail.com", "password"));
+        users.add(new User("Georges", "Dupont", "user2@gmail.com", "password"));
     }
 
     public void addShop(Shop shop){
