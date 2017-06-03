@@ -17,4 +17,5 @@
     <color name="shopDialogNameBackground">#b53f3f</color>
     <color name="shopDialogHoursListText">#ffffff</color>
     <color name="shopDialogHoursListTextBackground">#b53f3f</color>
+    <color name="connectionDialogError">#ff0000</color>
 </resources>

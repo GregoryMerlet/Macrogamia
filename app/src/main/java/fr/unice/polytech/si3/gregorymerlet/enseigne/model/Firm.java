@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 
@@ -213,13 +212,48 @@ public class Firm implements Serializable{
         return result;
     }
 
+    public User getUser(String mail){
+        User found = null;
+        for(User user : users)
+            if(user.getMail().equals(mail))
+                found = user;
+        return found;
+    }
+
+    public boolean connect(User user, String password){
+        if(actualUser != null)
+            return false;
+        if(!user.getPassword().equals(password))
+            return false;
+        actualUser = user;
+        return true;
+    }
+
+    public void disconnect(){
+        actualUser = null;
+    }
+
+    public boolean isSomeoneConnected(){
+        if(actualUser != null)
+            return true;
+        return false;
+    }
+
+    public User getActualUser() {
+        return actualUser;
+    }
+
     private void readObject(ObjectInputStream inputStream) throws ClassNotFoundException, IOException {
         this.name = inputStream.readUTF();
         this.shops = (List<Shop>) inputStream.readObject();
+        this.users = (List<User>) inputStream.readObject();
+        this.actualUser = (User) inputStream.readObject();
     }
 
     private void writeObject(ObjectOutputStream outputStream) throws IOException {
         outputStream.writeUTF(this.name);
         outputStream.writeObject(this.shops);
+        outputStream.writeObject(this.users);
+        outputStream.writeObject(this.actualUser);
     }
 }

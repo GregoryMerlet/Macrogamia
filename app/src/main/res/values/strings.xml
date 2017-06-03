@@ -18,4 +18,8 @@
     <string name="shopDialogHoursListText">Horaires d\'ouverture : </string>
     <string name="connection">Se connecter</string>
     <string name="deconnection">Se déconnecter</string>
+    <string name="mail">Adresse mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="connectionErrorMail">Adresse mail incorrecte</string>
+    <string name="connectionErrorPassword">Mot de passe incorrect</string>
 </resources>

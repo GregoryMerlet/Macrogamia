@@ -1,6 +1,7 @@
 package fr.unice.polytech.si3.gregorymerlet.enseigne;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs.ConnectionDialog;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.AccountFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MainFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MapFragment;
@@ -26,12 +30,16 @@ import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Button connectionButton;
     private Firm firm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.firm = new Firm();
+        this.firm.init();
+
+        setTitle(firm.getName());
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -46,25 +54,51 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if(fragmentManager.getFragments() == null)
             fragmentManager.beginTransaction().replace(R.id.flContent, new MainFragment()).commit();
 
-        connectionButton = (Button) navigationView.getHeaderView(0).findViewById(R.id.connectionButton);
+        final LinearLayout connectedUserLayout = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
+        final LinearLayout noUserLayout = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
+
+        Button connectionButton = (Button) navigationView.getHeaderView(0).findViewById(R.id.connectionButton);
         connectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Test");
+                ConnectionDialog connectionDialog = new ConnectionDialog(MainActivity.this, firm);
+                connectionDialog.show();
+                connectionDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if(firm.isSomeoneConnected()) {
+                            TextView name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutName);
+                            TextView mail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutMail);
+
+                            name.setText(firm.getActualUser().getFirstName() + " " + firm.getActualUser().getLastName());
+                            mail.setText(firm.getActualUser().getMail());
+
+                            noUserLayout.setVisibility(View.GONE);
+                            connectedUserLayout.setVisibility(View.VISIBLE);
+                            navigationView.getMenu().findItem(R.id.nav_account).setVisible(true);
+                        }
+                    }
+                });
             }
         });
 
-        this.firm = new Firm();
-        this.firm.init();
-
-        setTitle(firm.getName());
+        Button deconnectionButton = (Button) navigationView.getHeaderView(0).findViewById(R.id.deconnectionButton);
+        deconnectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firm.disconnect();
+                navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
+                connectedUserLayout.setVisibility(View.GONE);
+                noUserLayout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
