@@ -44,7 +44,8 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
         productPrice.setText(getItem(position).getPrice() + " €");
 
         ImageView image = (ImageView)convertView.findViewById(R.id.productImage);
-        image.setImageResource(getItem(position).getImageId());
+        ImagesAsyncTask imagesAsyncTask = new ImagesAsyncTask(image);
+        imagesAsyncTask.execute(getItem(position).getImageURL());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

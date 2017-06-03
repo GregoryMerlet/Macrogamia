@@ -3,6 +3,8 @@ package fr.unice.polytech.si3.gregorymerlet.enseigne.fragments;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsAdapter;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsRecyclerAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.animations.SizeAnimation;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
@@ -31,7 +34,7 @@ public class ProductsFragment extends Fragment {
     private static final String FIRM = "firm";
 
     View rootView;
-    private GridView productsGrid;
+    private RecyclerView productsGrid;
     private Firm firm;
     private boolean isSearchOpen;
     private SizeAnimation actualAnimation;
@@ -50,7 +53,7 @@ public class ProductsFragment extends Fragment {
         this.isSearchOpen = false;
 
         rootView = inflater.inflate(R.layout.fragment_products, container, false);
-        productsGrid = (GridView) rootView.findViewById(R.id.productsGrid);
+        productsGrid = (RecyclerView) rootView.findViewById(R.id.productsGrid);
 
         RelativeLayout searchLayout = (RelativeLayout) rootView.findViewById(R.id.searchLayout);
         final ImageButton openSearchButton = (ImageButton) rootView.findViewById(R.id.openSearchButton);
@@ -144,8 +147,14 @@ public class ProductsFragment extends Fragment {
         if(shopName.equals(getResources().getString(R.string.search_all_shops)))
             shopName = "all";
 
-        ProductsAdapter productsAdapter = new ProductsAdapter(this.getContext(), firm.getProducts(checkedType, sortType, ascendingSort, shopName), firm);
-        productsGrid.setAdapter(productsAdapter);
+        /*ProductsAdapter productsAdapter = new ProductsAdapter(this.getContext(), firm.getProducts(checkedType, sortType, ascendingSort, shopName), firm);
+        productsGrid.setAdapter(productsAdapter);*/
+
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), 2, GridLayoutManager.VERTICAL, false);
+        productsGrid.setLayoutManager(mLayoutManager);
+
+        ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(this.getContext(), firm.getProducts(checkedType, sortType, ascendingSort, shopName), firm);
+        productsGrid.setAdapter(productsRecyclerAdapter);
     }
 
     private void openSearchBar() {

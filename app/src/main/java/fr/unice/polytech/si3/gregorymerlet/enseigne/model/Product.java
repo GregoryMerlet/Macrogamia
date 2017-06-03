@@ -12,14 +12,14 @@ public class Product implements Serializable{
     private String type;
     private String description;
     private double price;
-    private int imageId;
+    private String imageURL;
 
-    public Product(String name, String type, String description, double price, int imageId){
+    public Product(String name, String type, String description, double price, String imageURL){
         this.name = name;
         this.type = type;
         this.description = description;
         this.price = price;
-        this.imageId = imageId;
+        this.imageURL = imageURL;
     }
 
     public String getName() {
@@ -38,8 +38,8 @@ public class Product implements Serializable{
         return price;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getImageURL() {
+        return imageURL;
     }
 
     private void readObject(ObjectInputStream inputStream) throws ClassNotFoundException, IOException {
@@ -47,7 +47,7 @@ public class Product implements Serializable{
         this.type = inputStream.readUTF();
         this.description = inputStream.readUTF();
         this.price = inputStream.readDouble();
-        this.imageId = inputStream.readInt();
+        this.imageURL = inputStream.readUTF();
     }
 
     private void writeObject(ObjectOutputStream outputStream) throws IOException {
@@ -55,6 +55,6 @@ public class Product implements Serializable{
         outputStream.writeUTF(this.type);
         outputStream.writeUTF(this.description);
         outputStream.writeDouble(this.price);
-        outputStream.writeInt(this.imageId);
+        outputStream.writeUTF(this.imageURL);
     }
 }

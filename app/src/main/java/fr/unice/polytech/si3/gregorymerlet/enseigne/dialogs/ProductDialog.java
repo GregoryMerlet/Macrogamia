@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.unice.polytech.si3.gregorymerlet.enseigne.ImagesAsyncTask;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Product;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Shop;
@@ -36,7 +37,8 @@ public class ProductDialog extends Dialog {
         price.setText(product.getPrice() + " €");
 
         ImageView image = (ImageView) findViewById(R.id.productDialogImage);
-        image.setImageResource(product.getImageId());
+        ImagesAsyncTask imagesAsyncTask = new ImagesAsyncTask(image);
+        imagesAsyncTask.execute(product.getImageURL());
 
         ListView shopListView = (ListView) findViewById(R.id.productDialogShopList);
         ArrayAdapter<Shop> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, shopList );
