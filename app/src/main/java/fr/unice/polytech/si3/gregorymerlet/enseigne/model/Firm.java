@@ -83,8 +83,8 @@ public class Firm implements Serializable{
         addShop(stLaurent);
         addShop(paris);
 
-        users.add(new User("John", "Doe", "user1@gmail.com", "password"));
-        users.add(new User("Georges", "Dupont", "user2@gmail.com", "password"));
+        users.add(new User("John", "Doe", "user1@gmail.com", "password", 1200));
+        users.add(new User("Georges", "Dupont", "user2@gmail.com", "password", 50));
     }
 
     public void addShop(Shop shop){

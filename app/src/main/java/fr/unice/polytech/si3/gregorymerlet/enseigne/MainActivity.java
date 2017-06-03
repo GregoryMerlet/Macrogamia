@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs.ConnectionDialog;
@@ -61,8 +62,8 @@ public class MainActivity extends AppCompatActivity
         if(fragmentManager.getFragments() == null)
             fragmentManager.beginTransaction().replace(R.id.flContent, new MainFragment()).commit();
 
-        final LinearLayout connectedUserLayout = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
-        final LinearLayout noUserLayout = (LinearLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
+        final RelativeLayout connectedUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
+        final RelativeLayout noUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
 
         Button connectionButton = (Button) navigationView.getHeaderView(0).findViewById(R.id.connectionButton);
         connectionButton.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +77,11 @@ public class MainActivity extends AppCompatActivity
                         if(firm.isSomeoneConnected()) {
                             TextView name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutName);
                             TextView mail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutMail);
+                            TextView fidelityPoints = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutFidelityPoints);
 
                             name.setText(firm.getActualUser().getFirstName() + " " + firm.getActualUser().getLastName());
                             mail.setText(firm.getActualUser().getMail());
+                            fidelityPoints.setText(String.valueOf(firm.getActualUser().getFideltyPoints()));
 
                             noUserLayout.setVisibility(View.GONE);
                             connectedUserLayout.setVisibility(View.VISIBLE);

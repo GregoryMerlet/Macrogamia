@@ -5,18 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:padding="10dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:orientation="vertical"
     android:gravity="bottom">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:id="@+id/connectedUserLayout"
         android:gravity="bottom"
         android:visibility="gone">
@@ -24,7 +20,7 @@
             android:id="@+id/connectedUserLayoutName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:layout_alignParentTop="true"
             android:text="Android Studio"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -32,27 +28,64 @@
             android:id="@+id/connectedUserLayoutMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/connectedUserLayoutName"
             android:text="android.studio@android.com" />
+
+        <TextView
+            android:id="@+id/connectedUserLayoutFidelityPointsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/connectedUserLayoutMail"
+            android:layout_marginTop="10dp"
+            android:text="@string/fidelityPoints"/>
+
+        <TextView
+            android:id="@+id/connectedUserLayoutFidelityPointsAppendice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pts"
+            android:textSize="20dp"
+            android:layout_below="@id/connectedUserLayoutFidelityPointsText"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/connectedUserLayoutFidelityPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_below="@id/connectedUserLayoutFidelityPointsText"
+            android:layout_toStartOf="@id/connectedUserLayoutFidelityPointsAppendice" />
 
         <Button
             android:id="@+id/deconnectionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/connectedUserLayoutFidelityPoints"
+            android:layout_alignParentEnd="true"
             android:text="@string/deconnection"/>
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/noUserLayout"
         android:gravity="bottom"
         android:visibility="visible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connectionQuery"/>
+
         <Button
             android:id="@+id/connectionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:text="@string/connection"/>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

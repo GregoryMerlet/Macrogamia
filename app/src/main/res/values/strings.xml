@@ -22,4 +22,6 @@
     <string name="password">Mot de passe</string>
     <string name="connectionErrorMail">Adresse mail incorrecte</string>
     <string name="connectionErrorPassword">Mot de passe incorrect</string>
+    <string name="fidelityPoints">Points de fidélités :</string>
+    <string name="connectionQuery">Vous n\'êtes actuellement pas connecté. \nVeuillez vous connecter afin d\'acceder aux informations du compte.</string>
 </resources>
