@@ -33,7 +33,7 @@ public class ProductsFragment extends Fragment {
 
     private static final String FIRM = "firm";
 
-    View rootView;
+    private View rootView;
     private RecyclerView productsGrid;
     private Firm firm;
     private boolean isSearchOpen;

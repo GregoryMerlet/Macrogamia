@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = MapFragment.newInstance(firm);
                 break;
             case R.id.nav_account:
-                fragment = AccountFragment.newInstance();
+                fragment = AccountFragment.newInstance(firm);
                 break;
             default:
                 fragment = new MainFragment();
