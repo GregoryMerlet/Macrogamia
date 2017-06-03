@@ -2,6 +2,7 @@ package fr.unice.polytech.si3.gregorymerlet.enseigne;
 
 import android.app.ActionBar;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,11 +28,15 @@ import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MainFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.MapFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.fragments.ProductsFragment;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Firm firm;
+    private NavigationView navigationView;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +60,22 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if(fragmentManager.getFragments() == null)
             fragmentManager.beginTransaction().replace(R.id.flContent, MainFragment.newInstance(firm)).commit();
 
-        final RelativeLayout connectedUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
-        final RelativeLayout noUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        boolean savedLogin = loginPreferences.getBoolean("savedLogin", false);
+        if (savedLogin == true) {
+            User user = firm.getUser(loginPreferences.getString("mail", ""));
+            firm.connect(user, loginPreferences.getString("password", ""));
+            checkConnection();
+        }
 
         Button connectionButton = (Button) navigationView.getHeaderView(0).findViewById(R.id.connectionButton);
         connectionButton.setOnClickListener(new View.OnClickListener() {
@@ -74,19 +86,7 @@ public class MainActivity extends AppCompatActivity
                 connectionDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        if(firm.isSomeoneConnected()) {
-                            TextView name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutName);
-                            TextView mail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutMail);
-                            TextView fidelityPoints = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutFidelityPoints);
-
-                            name.setText(firm.getActualUser().getFirstName() + " " + firm.getActualUser().getLastName());
-                            mail.setText(firm.getActualUser().getMail());
-                            fidelityPoints.setText(String.valueOf(firm.getActualUser().getFideltyPoints()));
-
-                            noUserLayout.setVisibility(View.GONE);
-                            connectedUserLayout.setVisibility(View.VISIBLE);
-                            navigationView.getMenu().findItem(R.id.nav_account).setVisible(true);
-                        }
+                        checkConnection();
                     }
                 });
             }
@@ -96,12 +96,34 @@ public class MainActivity extends AppCompatActivity
         deconnectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RelativeLayout connectedUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
+                RelativeLayout noUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
                 firm.disconnect();
+                loginPrefsEditor.clear();
+                loginPrefsEditor.commit();
                 navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
                 connectedUserLayout.setVisibility(View.GONE);
                 noUserLayout.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    private void checkConnection(){
+        if(firm.isSomeoneConnected()) {
+            RelativeLayout connectedUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
+            RelativeLayout noUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
+            TextView name = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutName);
+            TextView mail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutMail);
+            TextView fidelityPoints = (TextView) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayoutFidelityPoints);
+
+            name.setText(firm.getActualUser().getFirstName() + " " + firm.getActualUser().getLastName());
+            mail.setText(firm.getActualUser().getMail());
+            fidelityPoints.setText(String.valueOf(firm.getActualUser().getFideltyPoints()));
+
+            noUserLayout.setVisibility(View.GONE);
+            connectedUserLayout.setVisibility(View.VISIBLE);
+            navigationView.getMenu().findItem(R.id.nav_account).setVisible(true);
+        }
     }
 
     @Override

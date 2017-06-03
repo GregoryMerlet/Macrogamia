@@ -27,4 +27,5 @@
     <string name="connectionErrorPassword">Mot de passe incorrect</string>
     <string name="fidelityPoints">Points de fidélités :</string>
     <string name="welcome">Bienvenue !</string>
+    <string name="rememberMe">Se souvenir de moi</string>
 </resources>

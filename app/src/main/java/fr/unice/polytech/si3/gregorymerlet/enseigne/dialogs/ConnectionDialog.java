@@ -2,9 +2,11 @@ package fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ public class ConnectionDialog extends Dialog {
 
         final EditText mail = (EditText) findViewById(R.id.connectionDialogMail);
         final EditText password = (EditText) findViewById(R.id.connectionDialogPassword);
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.connectionDialogRemember);
         final TextView error = (TextView) findViewById(R.id.connectionDialogError);
 
         final Button connection = (Button) findViewById(R.id.connectionDialogButton);
@@ -36,6 +39,17 @@ public class ConnectionDialog extends Dialog {
                         error.setText(context.getResources().getString(R.string.connectionErrorPassword));
                         error.setVisibility(View.VISIBLE);
                     } else {
+                        SharedPreferences loginPreferences = context.getSharedPreferences("loginPrefs", context.MODE_PRIVATE);
+                        SharedPreferences.Editor loginPrefsEditor = loginPreferences.edit();
+                        if(checkBox.isChecked()){
+                            loginPrefsEditor.putBoolean("savedLogin", true);
+                            loginPrefsEditor.putString("mail", mail.getText().toString());
+                            loginPrefsEditor.putString("password", password.getText().toString());
+                            loginPrefsEditor.commit();
+                        } else {
+                            loginPrefsEditor.clear();
+                            loginPrefsEditor.commit();
+                        }
                         ConnectionDialog.this.dismiss();
                     }
                 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,15 +8,51 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main"
     tools:context="fr.unice.polytech.si3.gregorymerlet.enseigne.MainActivity"
+    android:paddingTop="55dp"
     android:background="@drawable/bg" >
 
     <TextView
+        android:id="@+id/accountFirstNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PAGE DE COMPTE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Prénom :" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/accountFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/accountFirstNameText"
+        android:layout_alignTop="@id/accountFirstNameText"
+        android:text="Test" />
+
+    <TextView
+        android:id="@+id/accountLastNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountFirstNameText"
+        android:text="Nom :" />
+
+    <TextView
+        android:id="@+id/accountLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/accountLastNameText"
+        android:layout_alignTop="@id/accountLastNameText"
+        android:text="Test" />
+
+    <TextView
+        android:id="@+id/accountMailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountLastNameText"
+        android:text="Mail :" />
+
+    <TextView
+        android:id="@+id/accountMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/accountMailText"
+        android:layout_alignTop="@id/accountMailText"
+        android:text="Test" />
+
+</RelativeLayout>
