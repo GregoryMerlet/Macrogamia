@@ -8,7 +8,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main"
     tools:context="fr.unice.polytech.si3.gregorymerlet.enseigne.MainActivity"
-    android:paddingTop="55dp">
+    android:paddingTop="55dp"
+    android:background="@drawable/bg" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,8 +51,7 @@
         android:verticalSpacing="5dp"
         android:horizontalSpacing="5dp"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/searchLayout"
-        android:background="@color/productsGrid"/>
+        android:layout_below="@id/searchLayout" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

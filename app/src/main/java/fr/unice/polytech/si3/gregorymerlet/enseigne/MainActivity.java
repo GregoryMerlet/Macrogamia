@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         this.firm = new Firm();
         this.firm.init();
 
-        setTitle(firm.getName());
+        setTitle(getResources().getString(R.string.menu_home));
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if(fragmentManager.getFragments() == null)
-            fragmentManager.beginTransaction().replace(R.id.flContent, new MainFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.flContent, MainFragment.newInstance(firm)).commit();
 
         final RelativeLayout connectedUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.connectedUserLayout);
         final RelativeLayout noUserLayout = (RelativeLayout) navigationView.getHeaderView(0).findViewById(R.id.noUserLayout);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = AccountFragment.newInstance(firm);
                 break;
             default:
-                fragment = new MainFragment();
+                fragment = MainFragment.newInstance(firm);
         }
 
         // Insert the fragment by replacing any existing fragment

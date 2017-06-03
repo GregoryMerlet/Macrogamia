@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main"
-    tools:context="fr.unice.polytech.si3.gregorymerlet.enseigne.MainActivity">
+    tools:context="fr.unice.polytech.si3.gregorymerlet.enseigne.MainActivity"
+    android:background="@drawable/bg" >
 
     <TextView
         android:layout_width="wrap_content"
