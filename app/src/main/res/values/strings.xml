@@ -32,4 +32,8 @@
     <string name="account_advantages">Gestion de mes points de fidélité</string>
     <string name="notification_Title">Avantages fidélité disponibles !</string>
     <string name="notification_Content">Venez découvrir vos avantages fidélité.</string>
+    <string name="account_firstname">Prénom : </string>
+    <string name="account_lastname">Nom : </string>
+    <string name="account_mail">Adresse mail : </string>
+    <string name="account_notifications">Notifications</string>
 </resources>

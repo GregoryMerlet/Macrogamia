@@ -13,7 +13,7 @@
         android:id="@+id/accountFirstNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prénom :"
+        android:text="@string/account_firstname"
         android:textSize="18dp"
         android:layout_marginBottom="10dp"/>
 
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/accountFirstNameText"
-        android:text="Nom :"
+        android:text="@string/account_lastname"
         android:textSize="18dp"
         android:layout_marginBottom="10dp"/>
 
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/accountLastNameText"
-        android:text="Mail :"
+        android:text="@string/account_mail"
         android:textSize="18dp"
         android:layout_marginBottom="10dp"/>
 
@@ -67,5 +67,23 @@
         android:textSize="18dp"
         android:layout_marginBottom="10dp"
         android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:id="@+id/accountNotificationsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountMailText"
+        android:text="@string/account_notifications"
+        android:textSize="18dp"
+        android:layout_marginBottom="10dp"/>
+
+    <ToggleButton
+        android:id="@+id/accountNotificationsToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/accountMailText"
+        android:text="ToggleButton"
+        android:checked="true" />
 
 </RelativeLayout>

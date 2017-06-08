@@ -204,7 +204,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void createNotification(){
-        if(firm.isSomeoneConnected() && firm.getActualUser().getFideltyPoints() > 0) {
+        final SharedPreferences notifPreferences = getSharedPreferences("notifPrefs", Context.MODE_PRIVATE);;
+        final SharedPreferences.Editor notifPrefsEditor = notifPreferences.edit();
+
+        if(notifPreferences.getBoolean("notifications", true) && firm.isSomeoneConnected() && firm.getActualUser().getFideltyPoints() > 0) {
             Intent notificationIntent = new Intent(this, NotificationReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

@@ -1,11 +1,15 @@
 package fr.unice.polytech.si3.gregorymerlet.enseigne.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
@@ -46,5 +50,20 @@ public class AccountInfoFragment extends Fragment{
 
         TextView mail = (TextView) rootView.findViewById(R.id.accountMail);
         mail.setText(firm.getActualUser().getMail());
+
+        final SharedPreferences notifPreferences = getContext().getSharedPreferences("notifPrefs", Context.MODE_PRIVATE);;
+        final SharedPreferences.Editor notifPrefsEditor = notifPreferences.edit();
+
+        ToggleButton toggleButton = (ToggleButton) rootView.findViewById(R.id.accountNotificationsToggleButton);
+
+        toggleButton.setChecked(notifPreferences.getBoolean("notifications", true));
+
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                notifPrefsEditor.putBoolean("notifications", isChecked);
+                notifPrefsEditor.commit();
+            }
+        });
     }
 }
