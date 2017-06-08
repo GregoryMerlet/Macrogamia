@@ -65,8 +65,6 @@ public class AccountFragment extends Fragment{
 
         if(openAdvantages)
             mViewPager.setCurrentItem(1);
-
-        System.out.println(mViewPager.getCurrentItem());
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
