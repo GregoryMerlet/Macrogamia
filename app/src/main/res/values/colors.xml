@@ -17,4 +17,7 @@
     <color name="shopDialogHoursListText">#ffffff</color>
     <color name="shopDialogHoursListTextBackground">#b53f3f</color>
     <color name="connectionDialogError">#ff0000</color>
+    <color name="accountTab">#ffffff</color>
+    <color name="fidelityPointsLayout">#b53f3f</color>
+    <color name="accountAdvantagesFidelityPoints">#ffffff</color>
 </resources>

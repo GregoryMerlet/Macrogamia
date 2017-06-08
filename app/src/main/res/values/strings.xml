@@ -28,4 +28,6 @@
     <string name="fidelityPoints">Points de fidélités :</string>
     <string name="welcome">Bienvenue !</string>
     <string name="rememberMe">Se souvenir de moi</string>
+    <string name="account_infos">Mes informations</string>
+    <string name="account_advantages">Gestion de mes points de fidélité</string>
 </resources>

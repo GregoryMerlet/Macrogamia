@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/accountAdvantagesFidelityPointsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/fidelityPointsLayout"
+        android:elevation="2dp"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/accountAdvantagesFidelityPointsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/fidelityPoints"
+            android:textSize="20dp"
+            android:textColor="@color/accountAdvantagesFidelityPoints"/>
+        <TextView
+            android:id="@+id/accountAdvantagesFidelityPointsAppendice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accountAdvantagesFidelityPointsText"
+            android:layout_alignParentEnd="true"
+            android:text="pts"
+            android:textSize="25dp"
+            android:textColor="@color/accountAdvantagesFidelityPoints"/>
+        <TextView
+            android:id="@+id/accountAdvantagesFidelityPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/accountAdvantagesFidelityPointsText"
+            android:layout_toStartOf="@id/accountAdvantagesFidelityPointsAppendice"
+            android:text="0"
+            android:textSize="25dp"
+            android:textColor="@color/accountAdvantagesFidelityPoints"
+            android:layout_marginEnd="5dp"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/accountAdvantagesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/accountAdvantagesFidelityPointsLayout"/>
+
+</RelativeLayout>

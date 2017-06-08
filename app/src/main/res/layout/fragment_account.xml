@@ -11,48 +11,18 @@
     android:paddingTop="55dp"
     android:background="@drawable/bg" >
 
-    <TextView
-        android:id="@+id/accountFirstNameText"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/accountTab"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Prénom :" />
+        android:background="@color/accountTab"
+        android:elevation="2dp" />
 
-    <TextView
-        android:id="@+id/accountFirstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/accountFirstNameText"
-        android:layout_alignTop="@id/accountFirstNameText"
-        android:text="Test" />
-
-    <TextView
-        android:id="@+id/accountLastNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/accountFirstNameText"
-        android:text="Nom :" />
-
-    <TextView
-        android:id="@+id/accountLastName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/accountLastNameText"
-        android:layout_alignTop="@id/accountLastNameText"
-        android:text="Test" />
-
-    <TextView
-        android:id="@+id/accountMailText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/accountLastNameText"
-        android:text="Mail :" />
-
-    <TextView
-        android:id="@+id/accountMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/accountMailText"
-        android:layout_alignTop="@id/accountMailText"
-        android:text="Test" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/accountContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/accountTab"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </RelativeLayout>
