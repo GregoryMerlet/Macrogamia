@@ -3,15 +3,12 @@ package fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import fr.unice.polytech.si3.gregorymerlet.enseigne.OpenHoursAdapter;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.adapters.OpenHoursAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Shop;
 

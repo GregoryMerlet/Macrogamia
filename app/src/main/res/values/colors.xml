@@ -20,4 +20,6 @@
     <color name="accountTab">#ffffff</color>
     <color name="fidelityPointsLayout">#b53f3f</color>
     <color name="accountAdvantagesFidelityPoints">#ffffff</color>
+    <color name="enabledCardView">#ffffff</color>
+    <color name="disabledCardView">#aaaaaa</color>
 </resources>

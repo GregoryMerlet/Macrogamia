@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.gregorymerlet.enseigne;
+package fr.unice.polytech.si3.gregorymerlet.enseigne.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 
 public class PromoAdapter extends PagerAdapter {
 

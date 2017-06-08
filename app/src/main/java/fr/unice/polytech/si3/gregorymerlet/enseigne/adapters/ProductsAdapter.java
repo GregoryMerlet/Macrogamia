@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.gregorymerlet.enseigne;
+package fr.unice.polytech.si3.gregorymerlet.enseigne.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.unice.polytech.si3.gregorymerlet.enseigne.ImagesAsyncTask;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.dialogs.ProductDialog;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Product;

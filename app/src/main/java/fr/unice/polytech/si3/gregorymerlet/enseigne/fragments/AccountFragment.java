@@ -16,11 +16,13 @@ import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 public class AccountFragment extends Fragment{
 
     private static final String FIRM = "firm";
+    private static final String OPEN_ADVANTAGES = "openAdvantages";
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private View rootView;
     private Firm firm;
+    private boolean openAdvantages = false;
 
     public static AccountFragment newInstance(Firm firm) {
         AccountFragment fragment = new AccountFragment();
@@ -30,13 +32,30 @@ public class AccountFragment extends Fragment{
         return fragment;
     }
 
+    public static AccountFragment newInstance(Firm firm, boolean openAdvantages) {
+        AccountFragment fragment = new AccountFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(FIRM, firm);
+        args.putBoolean(OPEN_ADVANTAGES, openAdvantages);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.firm = (Firm) getArguments().getSerializable(FIRM);
+        this.openAdvantages = getArguments().getBoolean(OPEN_ADVANTAGES);
 
         rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle saveInstanceState) {
+        super.onActivityCreated(saveInstanceState);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.accountContainer);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -44,12 +63,10 @@ public class AccountFragment extends Fragment{
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.accountTab);
         tabLayout.setupWithViewPager(mViewPager);
 
-        return rootView;
-    }
+        if(openAdvantages)
+            mViewPager.setCurrentItem(1);
 
-    @Override
-    public void onActivityCreated(Bundle saveInstanceState){
-        super.onActivityCreated(saveInstanceState);
+        System.out.println(mViewPager.getCurrentItem());
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

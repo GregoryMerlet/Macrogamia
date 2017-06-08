@@ -1,4 +1,4 @@
-package fr.unice.polytech.si3.gregorymerlet.enseigne;
+package fr.unice.polytech.si3.gregorymerlet.enseigne.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 
 public class OpenHoursAdapter extends ArrayAdapter{
 

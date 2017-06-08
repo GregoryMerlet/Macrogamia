@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,8 +22,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsAdapter;
-import fr.unice.polytech.si3.gregorymerlet.enseigne.ProductsRecyclerAdapter;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.adapters.ProductsRecyclerAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.animations.SizeAnimation;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;

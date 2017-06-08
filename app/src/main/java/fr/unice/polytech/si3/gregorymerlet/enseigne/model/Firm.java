@@ -17,11 +17,13 @@ public class Firm implements Serializable{
     private List<Shop> shops;
     private List<User> users;
     private User actualUser;
+    private List<Advantage> advantages;
 
     public Firm(){
         this.shops = new ArrayList<>();
         this.users = new ArrayList<>();
         this.actualUser = null;
+        this.advantages = new ArrayList<>();
     }
 
     public void init(){
@@ -85,6 +87,21 @@ public class Firm implements Serializable{
 
         users.add(new User("John", "Doe", "user1@gmail.com", "password", 1200));
         users.add(new User("Georges", "Dupont", "user2@gmail.com", "password", 50));
+
+        advantages.add(new Advantage("Bon de réduction de 5 €", 25));
+        advantages.add(new Advantage("Bon de réduction de 10 €", 50));
+        advantages.add(new Advantage("Bon de réduction de 15 €", 75));
+        advantages.add(new Advantage("Bon de réduction de 20 €", 100));
+        advantages.add(new Advantage("Bon de réduction de 25 €", 125));
+        advantages.add(new Advantage("Bon de réduction de 30 €", 150));
+        advantages.add(new Advantage("Bon de réduction de 35 €", 175));
+        advantages.add(new Advantage("Bon de réduction de 40 €", 200));
+        advantages.add(new Advantage("Bon de réduction de 45 €", 225));
+        advantages.add(new Advantage("Bon de réduction de 50 €", 250));
+    }
+
+    public List<Advantage> getAdvantages() {
+        return advantages;
     }
 
     public void addShop(Shop shop){
@@ -248,6 +265,7 @@ public class Firm implements Serializable{
         this.shops = (List<Shop>) inputStream.readObject();
         this.users = (List<User>) inputStream.readObject();
         this.actualUser = (User) inputStream.readObject();
+        this.advantages = (List<Advantage>) inputStream.readObject();
     }
 
     private void writeObject(ObjectOutputStream outputStream) throws IOException {
@@ -255,5 +273,6 @@ public class Firm implements Serializable{
         outputStream.writeObject(this.shops);
         outputStream.writeObject(this.users);
         outputStream.writeObject(this.actualUser);
+        outputStream.writeObject(this.advantages);
     }
 }

@@ -1,6 +1,5 @@
 package fr.unice.polytech.si3.gregorymerlet.enseigne.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import fr.unice.polytech.si3.gregorymerlet.enseigne.PromoAdapter;
+import fr.unice.polytech.si3.gregorymerlet.enseigne.adapters.PromoAdapter;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.R;
 import fr.unice.polytech.si3.gregorymerlet.enseigne.model.Firm;
 

@@ -1,12 +1,22 @@
 package fr.unice.polytech.si3.gregorymerlet.enseigne;
 
 import android.app.ActionBar;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -63,9 +73,17 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager.getFragments() == null)
-            fragmentManager.beginTransaction().replace(R.id.flContent, MainFragment.newInstance(firm)).commit();
+        String action = getIntent().getAction();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        if(fragmentManager.getFragments() == null) {
+            if(action.equals("advantages")) {
+                fragmentManager.beginTransaction().replace(R.id.flContent, AccountFragment.newInstance(firm, true)).commit();
+                navigationView.getMenu().findItem(R.id.nav_account).setChecked(true);
+            } else {
+                fragmentManager.beginTransaction().replace(R.id.flContent, MainFragment.newInstance(firm)).commit();
+                navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+            }
+        }
 
         loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
@@ -104,6 +122,8 @@ public class MainActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.nav_account).setVisible(false);
                 connectedUserLayout.setVisibility(View.GONE);
                 noUserLayout.setVisibility(View.VISIBLE);
+                navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+                fragmentManager.beginTransaction().replace(R.id.flContent, MainFragment.newInstance(firm)).commit();
             }
         });
     }
@@ -134,6 +154,12 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        createNotification();
+        super.onStop();
     }
 
     @Override
@@ -175,5 +201,20 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void createNotification(){
+        if(firm.isSomeoneConnected() && firm.getActualUser().getFideltyPoints() > 0) {
+            Intent notificationIntent = new Intent(this, NotificationReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            long timeToWakeUp = SystemClock.elapsedRealtime() + 10000;
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeToWakeUp, pendingIntent);
+        }
+    }
+
+    public Firm getFirm(){
+        return firm;
     }
 }
