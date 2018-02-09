@@ -1,4 +1,7 @@
-# appliIHM
+# Macrogamia
+
+Project done at school for an Android course.
+
 https://docs.google.com/document/d/1IFbl7R2aFmxkYDvS2K0O2a8NnOtSQ6i_roTRZEsNtxg
 
 # Persona
